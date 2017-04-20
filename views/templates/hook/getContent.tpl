@@ -62,7 +62,7 @@
             </span>
         </div>
         <div class='panel-body'>
-            {$table_invoices|escape:'htmlall':'UTF-8'}
+            {$table_invoices}
         </div>
         <div class='panel-footer'>
             <button type="submit" value="1" id="submit_invoice_export" name="submit_invoice_export" class="btn btn-default pull-right">
