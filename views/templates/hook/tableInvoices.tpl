@@ -66,17 +66,17 @@
             <tr>
                 <td style='text-align: right;'>
                     <span>
-                        {$i++} 
-                        <input type='checkbox' name='checkRow[{$i-1}]' {if !empty($checkRow[$i-1])}checked='checked'{/if}>
+                        {$i++|escape:'htmlall':'UTF-8'} 
+                        <input type='checkbox' name='checkRow[{$i-1|escape:'htmlall':'UTF-8'}]' {if !empty($checkRow[$i-1])}checked='checked'{/if}>
                     </span>
                 </td>
-                <td style='text-align: right;'>{$row['id_order']}</td>
-                <td style='text-align: right;'>{$row['id_order_invoice']}</td>
-                <td style='text-align: right;'>{$row['number']}</td>
-                <td style='text-align: center;'>{$row['date_add']}</td>
-                <td style='text-align: right;'>{$row['id_customer']}</td>
-                <td style='text-align: left;' >{$row['customer']|strtoupper}</td>
-                <td style='text-align: right;'>{displayPrice price=$row['total_paid_tax_incl']}</td>
+                <td style='text-align: right;'>{$row['id_order']|escape:'htmlall':'UTF-8'}</td>
+                <td style='text-align: right;'>{$row['id_order_invoice']|escape:'htmlall':'UTF-8'}</td>
+                <td style='text-align: right;'>{$row['number']|escape:'htmlall':'UTF-8'}</td>
+                <td style='text-align: center;'>{$row['date_add']|escape:'htmlall':'UTF-8'}</td>
+                <td style='text-align: right;'>{$row['id_customer']|escape:'htmlall':'UTF-8'}</td>
+                <td style='text-align: left;' >{{$row['customer']|strtoupper}|escape:'htmlall':'UTF-8'}</td>
+                <td style='text-align: right;'>{displayPrice price=$row['total_paid_tax_incl']|escape:'htmlall':'UTF-8'}</td>
             </tr>
         {/foreach}
     </tbody>

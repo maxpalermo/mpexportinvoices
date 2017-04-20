@@ -62,7 +62,7 @@ class MpExportInvoices extends Module
         $this->user = '';
         $this->password = '';
         $this->json_string = '';
-        $this->messages = [];
+        $this->messages = array();
         $this->debug = true;
         $this->filename = dirname(__FILE__) . DIRECTORY_SEPARATOR .'json.txt';
         $this->excel_filename = dirname(__FILE__) . DIRECTORY_SEPARATOR .'export.xls';

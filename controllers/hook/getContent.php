@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2017 mpSOFT
  *
@@ -24,20 +23,23 @@
  *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of mpSOFT
  */
-class MpExportInvoicesGetContentController {
+
+class MpExportInvoicesGetContentController 
+{
     private $module;
     private $file;
     private $context;
     private $_path;
     
-    public function __construct($module, $file, $path) {
+    public function __construct($module, $file, $path) 
+    {
         $this->file = $file;
         $this->module = $module;
         $this->context = Context::getContext();
         $this->_path = $path;
     }
     
-    public function run($params = [])
+    public function run($params = array())
     {
         $dateFrom = Tools::getValue('input_date_from', '');
         $dateTo   = Tools::getValue('input_date_to', '');
@@ -48,10 +50,10 @@ class MpExportInvoicesGetContentController {
                 $this->context->smarty->assign('xml_invoices','');
             }
         } else {
-            $this->context->smarty->assign('invoices', []);
-            $this->context->smarty->assign('sql','');
-            $this->context->smarty->assign('checkRow',[]);
-            $this->context->smarty->assign('xml_invoices','');
+            $this->context->smarty->assign('invoices', array());
+            $this->context->smarty->assign('sql', '');
+            $this->context->smarty->assign('checkRow', array());
+            $this->context->smarty->assign('xml_invoices', '');
         }
         
         $this->context->smarty->assign('table_invoices',
@@ -105,11 +107,11 @@ class MpExportInvoicesGetContentController {
         $this->context->smarty->assign('sql', $sql);
         $this->context->smarty->assign('invoices', $result);
         if(Tools::isSubmit('submit_invoice_export')) {
-            $checkRow = Tools::getValue('checkRow', []);
+            $checkRow = Tools::getValue('checkRow', array());
             $this->context->smarty->assign('checkRow', $checkRow);
             $this->exportInvoices($result, $checkRow);
         } else {
-            $this->context->smarty->assign('checkRow', []);
+            $this->context->smarty->assign('checkRow', array());
         }
     }
     

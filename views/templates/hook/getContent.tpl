@@ -62,7 +62,7 @@
             </span>
         </div>
         <div class='panel-body'>
-            {$table_invoices}
+            {$table_invoices|escape:'htmlall':'UTF-8'}
         </div>
         <div class='panel-footer'>
             <button type="submit" value="1" id="submit_invoice_export" name="submit_invoice_export" class="btn btn-default pull-right">
@@ -79,11 +79,11 @@
         $(".input-date").datepicker({ dateFormat: 'yy-mm-dd' });
         
         {if !empty($dateFrom)}
-            $("#input_date_from").val("{$dateFrom}");
+            $("#input_date_from").val("{$dateFrom|escape:'htmlall':'UTF-8'}");
         {/if}
         
         {if !empty($dateTo)}
-            $("#input_date_to").val("{$dateTo}");
+            $("#input_date_to").val("{$dateTo|escape:'htmlall':'UTF-8'}");
         {/if}
             
         $("#checkAll").on("change",function(){
