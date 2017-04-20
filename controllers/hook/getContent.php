@@ -59,7 +59,7 @@ class MpExportInvoicesGetContentController
         $this->context->smarty->assign(
             'table_invoices',
             $this->context->smarty->fetch(
-            _PS_MODULE_DIR_ . 'mpexportinvoices/views/templates/hook/tableInvoices.tpl'
+                _PS_MODULE_DIR_ . 'mpexportinvoices/views/templates/hook/tableInvoices.tpl'
             )
         );
         $this->context->smarty->assign('dateFrom', $dateFrom);
