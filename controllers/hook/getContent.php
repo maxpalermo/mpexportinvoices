@@ -24,14 +24,14 @@
  *  International Registered Trademark & Property of mpSOFT
  */
 
-class MpExportInvoicesGetContentController 
+class MpExportInvoicesGetContentController
 {
     private $module;
     private $file;
     private $context;
     private $_path;
     
-    public function __construct($module, $file, $path) 
+    public function __construct($module, $file, $path)
     {
         $this->file = $file;
         $this->module = $module;
@@ -44,10 +44,10 @@ class MpExportInvoicesGetContentController
         $dateFrom = Tools::getValue('input_date_from', '');
         $dateTo   = Tools::getValue('input_date_to', '');
         
-        if(Tools::isSubmit('submit_invoice_search') || Tools::isSubmit('submit_invoice_export')) {
+        if (Tools::isSubmit('submit_invoice_search') || Tools::isSubmit('submit_invoice_export')) {
             $this->getInvoices($dateFrom, $dateTo);
-            if(!Tools::isSubmit('submit_invoice_export')) {
-                $this->context->smarty->assign('xml_invoices','');
+            if (!Tools::isSubmit('submit_invoice_export')) {
+                $this->context->smarty->assign('xml_invoices', '');
             }
         } else {
             $this->context->smarty->assign('invoices', array());
@@ -56,11 +56,13 @@ class MpExportInvoicesGetContentController
             $this->context->smarty->assign('xml_invoices', '');
         }
         
-        $this->context->smarty->assign('table_invoices',
-                $this->context->smarty->fetch(
-                        _PS_MODULE_DIR_ . 'mpexportinvoices/views/templates/hook/tableInvoices.tpl'));
+        $this->context->smarty->assign(
+            'table_invoices',
+            $this->context->smarty->fetch(
+                        _PS_MODULE_DIR_ . 'mpexportinvoices/views/templates/hook/tableInvoices.tpl')
+            );
         $this->context->smarty->assign('dateFrom', $dateFrom);
-        $this->context->smarty->assign('dateTo'  , $dateTo);
+        $this->context->smarty->assign('dateTo', $dateTo);
         return $this->module->display($this->file, 'getContent.tpl');
     }
     
@@ -83,9 +85,9 @@ class MpExportInvoicesGetContentController
                 ->select('i.total_paid_tax_excl')
                 ->select('i.total_paid_tax_incl')
                 ->select('o.payment')
-                ->from('order_invoice','i')
-                ->innerJoin('orders','o','o.id_order=i.id_order')
-                ->innerJoin('customer','c','c.id_customer=o.id_customer')
+                ->from('order_invoice', 'i')
+                ->innerJoin('orders', 'o', 'o.id_order=i.id_order')
+                ->innerJoin('customer', 'c', 'c.id_customer=o.id_customer')
                 ->orderBy('i.date_add')
                 ->orderBy('i.number');
 
@@ -96,7 +98,7 @@ class MpExportInvoicesGetContentController
         } elseif (empty($dateFrom) && !empty($dateTo)) {
             $sql->where("i.date_add <= '" . $dateTo . "'");
         } elseif (!empty($dateFrom) && !empty($dateTo)) {
-            $sql->where("i.date_add >= '" . $dateFrom 
+            $sql->where("i.date_add >= '" . $dateFrom
                     . "' and i.date_add <= DATE_ADD('$dateTo', INTERVAL 1 DAY)");
         } else {
             die($this->module->l('Fatal error during date parsing.', $this->moduleName));
@@ -106,7 +108,7 @@ class MpExportInvoicesGetContentController
         
         $this->context->smarty->assign('sql', $sql);
         $this->context->smarty->assign('invoices', $result);
-        if(Tools::isSubmit('submit_invoice_export')) {
+        if (Tools::isSubmit('submit_invoice_export')) {
             $checkRow = Tools::getValue('checkRow', array());
             $this->context->smarty->assign('checkRow', $checkRow);
             $this->exportInvoices($result, $checkRow);
@@ -127,13 +129,13 @@ class MpExportInvoicesGetContentController
         $i=1;
         foreach($result as $row)
         {
-            if(!empty($checkRow[$i])) {
-                $xml = $this->addInvoice($xml,$row);
+            if (!empty($checkRow[$i])) {
+                $xml = $this->addInvoice($xml, $row);
             }
             $i++;
         }
         $filename = dirname(__FILE__) . DIRECTORY_SEPARATOR .".."
-            .DIRECTORY_SEPARATOR . ".."    
+            .DIRECTORY_SEPARATOR . ".."
             .DIRECTORY_SEPARATOR . "export"
             .DIRECTORY_SEPARATOR . "invoices(" . date('Ymd-his') . ").xml";
         
@@ -148,8 +150,8 @@ class MpExportInvoicesGetContentController
     }
     
     /**
-     * ADD AN INVOICE ELEMENT TO XML 
-     * @param SimpleXMLElement $xml 
+     * ADD AN INVOICE ELEMENT TO XML
+     * @param SimpleXMLElement $xml
      * @param array $row
      * @return SimpleXMLElement $xml
      */
@@ -179,7 +181,7 @@ class MpExportInvoicesGetContentController
         /**
          * @var OrderDetailCore $product
          */
-        foreach($orderList as $product)
+        foreach ($orderList as $product)
         {
             //print "<pre>" . print_r($product,1) . "<pre>";
             
@@ -205,7 +207,7 @@ class MpExportInvoicesGetContentController
             $row_product->addChild('tax_rate', $tax_rate);
         }
         
-        if($this->tableExists(_DB_PREFIX_ . 'mp_advpayment_orders')) {
+        if ($this->tableExists(_DB_PREFIX_ . 'mp_advpayment_orders')) {
             $sql_fee = $this->getFee($product['id_order']);
             $fee = $invoice->addChild('fees');
             $fee->addChild('amount', $sql_fee['fees']);
