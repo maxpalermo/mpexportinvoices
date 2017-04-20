@@ -59,7 +59,8 @@ class MpExportInvoicesGetContentController
         $this->context->smarty->assign(
             'table_invoices',
             $this->context->smarty->fetch(
-            _PS_MODULE_DIR_ . 'mpexportinvoices/views/templates/hook/tableInvoices.tpl')
+            _PS_MODULE_DIR_ . 'mpexportinvoices/views/templates/hook/tableInvoices.tpl'
+            )
         );
         $this->context->smarty->assign('dateFrom', $dateFrom);
         $this->context->smarty->assign('dateTo', $dateTo);
@@ -127,8 +128,7 @@ class MpExportInvoicesGetContentController
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><invoices></invoices>');
         
         $i=1;
-        foreach ($result as $row)
-        {
+        foreach ($result as $row) {
             if (!empty($checkRow[$i])) {
                 $xml = $this->addInvoice($xml, $row);
             }
@@ -181,8 +181,7 @@ class MpExportInvoicesGetContentController
         /**
          * @var OrderDetailCore $product
          */
-        foreach ($orderList as $product)
-        {
+        foreach ($orderList as $product) {
             //print "<pre>" . print_r($product,1) . "<pre>";
             
             //Get tax rate
